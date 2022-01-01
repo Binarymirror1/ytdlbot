@@ -8,6 +8,7 @@
 __author__ = "Benny <benny.think@gmail.com>"
 
 import logging
+import pathlib
 
 import ffmpeg
 
@@ -85,6 +86,11 @@ def get_metadata(video_path):
     except Exception as e:
         logging.error(e)
 
-    thumb = video_path + "-thunmnail.png"
+    thumb = pathlib.Path(video_path).parent.joinpath("thunmnail.png").as_posix()
     ffmpeg.input(video_path, ss=duration / 2).filter('scale', width, -1).output(thumb, vframes=1).run()
     return dict(height=height, width=width, duration=duration, thumb=thumb)
+
+
+if __name__ == '__main__':
+    v = "/Users/benny/Desktop/1 %.mp4"
+    get_metadata(v)

@@ -44,8 +44,8 @@ services:
     image: bennythink/ytdlbot
     env_file:
       - env/ytdl.env
-    restart: always
-    command: [ "/usr/local/bin/celery" ,"-A","tasks","flower" ,"--basic_auth=benny:123456","--address=0.0.0.0" ]
+    restart: on-failure
+    command: [ "/usr/local/bin/celery" ,"-A","flower_tasks","flower" ,"--basic_auth=benny:123456","--address=0.0.0.0" ]
     volumes:
       - ./data/instagram.com_cookies.txt:/ytdlbot/ytdlbot/instagram.com_cookies.txt
     ports:
